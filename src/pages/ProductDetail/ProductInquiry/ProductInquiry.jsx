@@ -25,9 +25,8 @@ import { inquiryLimitAtom, inquiryPageAtom } from './@recoil/renderState';
 export default function ProductInquiry() {
   // user의 정보 받기
   const { user } = useAuthState();
-
+  
   // const dataState = useRecoilValue(dataStateAtom);
-
   const setProductDetailModalState = useSetRecoilState(productDetailModalState);
   const setDarkFilterState = useSetRecoilState(darkFilterState);
 
@@ -36,29 +35,28 @@ export default function ProductInquiry() {
 
   // 문서를 저장 할 컬렉션 이름
   const collectionName = 'inquiryData';
-  // 한번 실행시켜 => useEffect가 실행될임
 
   const { dataState } = useDetailCollection(collectionName);
 
-
   // 페이지네이션 테스트
-
   //limit =  6
   // const limit = useRecoilValue(inquiryLimitAtom);
   const [limit,setState] = useState(6);
-
-
 
   // const [page, setPage] = useRecoilState(inquiryPageAtom);
   const [page, setPage] = useState(1);
   // total = 15개
 
-  const numPages = Math.ceil(15 / limit);
+  let numPages;
 
   useEffect(() => {
     console.log('[ProductInquiry] dataState: ', dataState);
-  }, [dataState]);
 
+    // test - dataState의 길이를 가져오기
+    // console.log('dataState의 길이 출력 => ', dataState.length);
+    // numPages = Math.ceil(dataState.length / limit);
+  }, [dataState]);
+  
   function productModalClickHandler() {
     console.log('user출력:', user);
     if (user == null) {
